@@ -7,7 +7,7 @@
 //
 // **Step 1**: Create the object
 //
-// ```var keyboard	= new THREEx.KeyboardState();```
+// ```let keyboard	= new THREEx.KeyboardState();```
 //
 // **Step 2**: Query the keyboard state
 //
@@ -26,7 +26,7 @@
 //
 
 /** @namespace */
-var THREEx	= THREEx 		|| {};
+let THREEx	= THREEx 		|| {};
 
 /**
  * - NOTE: it would be quite easy to push event-driven too
@@ -42,7 +42,7 @@ THREEx.KeyboardState	= function(domElement)
 	this.modifiers	= {};
 	
 	// create callback to bind/unbind keyboard events
-	var _this	= this;
+	let _this	= this;
 	this._onKeyDown	= function(event){ _this._onKeyChange(event)	}
 	this._onKeyUp	= function(event){ _this._onKeyChange(event)	}
 
@@ -52,8 +52,8 @@ THREEx.KeyboardState	= function(domElement)
 
 	// create callback to bind/unbind window blur event
 	this._onBlur = function(){
-		for(var prop in _this.keyCodes)  _this.keyCodes[prop] = false;
-		for(var prop in _this.modifiers)  _this.modifiers[prop] = false;
+		for(let prop in _this.keyCodes)  _this.keyCodes[prop] = false;
+		for(let prop in _this.modifiers)  _this.modifiers[prop] = false;
 	}
 
 	// bind window blur
@@ -95,8 +95,8 @@ THREEx.KeyboardState.prototype._onKeyChange	= function(event)
 	//console.log("onKeyChange", event, event.keyCode, event.shiftKey, event.ctrlKey, event.altKey, event.metaKey)
 
 	// update this.keyCodes
-	var keyCode		= event.keyCode
-	var pressed		= event.type === 'keydown' ? true : false
+	let keyCode		= event.keyCode
+	let pressed		= event.type === 'keydown' ? true : false
 	this.keyCodes[keyCode]	= pressed
 	// update this.modifiers
 	this.modifiers['shift']	= event.shiftKey
@@ -112,10 +112,10 @@ THREEx.KeyboardState.prototype._onKeyChange	= function(event)
  * @returns {Boolean} true if the key is pressed, false otherwise
 */
 THREEx.KeyboardState.prototype.pressed	= function(keyDesc){
-	var keys	= keyDesc.split("+");
-	for(var i = 0; i < keys.length; i++){
-		var key		= keys[i]
-		var pressed	= false
+	let keys	= keyDesc.split("+");
+	for(let i = 0; i < keys.length; i++){
+		let key		= keys[i]
+		let pressed	= false
 		if( THREEx.KeyboardState.MODIFIERS.indexOf( key ) !== -1 ){
 			pressed	= this.modifiers[key];
 		}else if( Object.keys(THREEx.KeyboardState.ALIAS).indexOf( key ) != -1 ){
@@ -135,14 +135,14 @@ THREEx.KeyboardState.prototype.pressed	= function(keyDesc){
  * @return {Boolean}         true if the event match keyDesc, false otherwise
  */
 THREEx.KeyboardState.prototype.eventMatches = function(event, keyDesc) {
-	var aliases	= THREEx.KeyboardState.ALIAS
-	var aliasKeys	= Object.keys(aliases)
-	var keys	= keyDesc.split("+")
+	let aliases	= THREEx.KeyboardState.ALIAS
+	let aliasKeys	= Object.keys(aliases)
+	let keys	= keyDesc.split("+")
 	// log to debug
 	// console.log("eventMatches", event, event.keyCode, event.shiftKey, event.ctrlKey, event.altKey, event.metaKey)
-	for(var i = 0; i < keys.length; i++){
-		var key		= keys[i];
-		var pressed	= false;
+	for(let i = 0; i < keys.length; i++){
+		let key		= keys[i];
+		let pressed	= false;
 		if( key === 'shift' ){
 			pressed	= (event.shiftKey	? true : false)
 		}else if( key === 'ctrl' ){
